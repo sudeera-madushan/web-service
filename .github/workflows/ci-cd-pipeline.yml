@@ -41,14 +41,16 @@ jobs:
 
     - name: Wait for rollouts
       run: |
-        kubectl --kubeconfig=kubeconfig.yaml rollout status deployment/trading -n green
-        kubectl --kubeconfig=kubeconfig.yaml rollout status deployment/wallet -n green
-        kubectl --kubeconfig=kubeconfig.yaml rollout status deployment/account-management -n green
-        kubectl --kubeconfig=kubeconfig.yaml rollout status deployment/api-gateway -n green
+        kubectl apply -f kubernetes/green/account-service.yaml
+        kubectl apply -f kubernetes/green/api-gateway.yaml
+        kubectl apply -f kubernetes/green/centralized-logging.yaml
+        kubectl apply -f kubernetes/green/notification-service.yaml
+        kubectl apply -f kubernetes/green/trading-service.yaml
+        kubectl apply -f kubernetes/green/wallet-service.yaml
 
     - name: Run unit tests
       run: |
-        services=("api-gateway" "account-management" "wallet" "trading")
+        services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
         for service in "${services[@]}"; do
           cd $service
           pip install -r requirements.txt
@@ -62,7 +64,7 @@ jobs:
 
     - name: Run migrations
       run: |
-        services=("trading" "wallet" "account-management")
+        services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
         for service in "${services[@]}"; do
           cd $service
           if [ -f "migrations" ]; then
