@@ -50,6 +50,7 @@ jobs:
         for service in "${services[@]}"; do
           cd $service
           pip install -r requirements.txt
+          pytest
           cd ..
         done
 
