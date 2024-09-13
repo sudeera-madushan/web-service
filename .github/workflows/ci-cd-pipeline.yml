@@ -41,12 +41,12 @@ jobs:
 
     - name: Wait for rollouts
       run: |
-        kubectl apply -f kubernetes/green/account-service.yaml
-        kubectl apply -f kubernetes/green/api-gateway.yaml
-        kubectl apply -f kubernetes/green/centralized-logging.yaml
-        kubectl apply -f kubernetes/green/notification-service.yaml
-        kubectl apply -f kubernetes/green/trading-service.yaml
-        kubectl apply -f kubernetes/green/wallet-service.yaml
+        kubectl rollout status deployment/account -n green
+        kubectl rollout status deployment/api-gateway -n green
+        kubectl rollout status deployment/centralized-logging -n green
+        kubectl rollout status deployment/notification -n green
+        kubectl rollout status deployment/trading -n green
+        kubectl rollout status deployment/wallet -n green
 
     - name: Run unit tests
       run: |
