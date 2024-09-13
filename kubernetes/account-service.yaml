@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: account-service
-        image: your-dockerhub-username/account-service:latest
+        image: sudeeramadushan/account-service:latest
         ports:
         - containerPort: 5003
 ---

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: notification-service
-        image: your-dockerhub-username/notification-service:latest
+        image: sudeeramadushan/notification-service:latest
         ports:
         - containerPort: 5004
 ---

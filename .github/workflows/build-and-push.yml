@@ -23,13 +23,20 @@ jobs:
         username: sudeeramadushan
         password: S+s-20+01-@MADUSHAN
 
-    - name: Build and push Docker image
-      uses: docker/build-push-action@v2
-      with:
-        context: .
-        file: ./Dockerfile
-        push: true
-        tags: sudeeramadushan/micro-services:latest
+     - name: Build and push Docker images
+      run: |
+        declare -A services
+        services=(
+          ["account-service"]="account-service/Dockerfile"
+          ["api-gateway"]="api-gateway/Dockerfile"
+          ["centralized-logging"]="centralized-logging/Dockerfile"
+          ["notification-service"]="notification-service/Dockerfile"
+          ["trading-service"]="trading-service/Dockerfile"
+          ["wallet-service"]="wallet-service/Dockerfile"
+        )
+        for service in "${!services[@]}"; do
+          docker buildx build --file "${services[$service]}" --tag sudeeramadushan/$service:latest --push .
+        done
 
     - name: Log out from Docker Hub
       run: docker logout

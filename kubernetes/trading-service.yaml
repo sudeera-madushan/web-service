@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: trading-service
-        image: your-dockerhub-username/trading-service:latest
+        image: sudeeramadushan/trading-service:latest
         ports:
         - containerPort: 5001
 ---

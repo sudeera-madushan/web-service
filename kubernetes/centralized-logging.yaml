@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: centralized-logging
-        image: your-dockerhub-username/centralized-logging:latest
+        image: sudeeramadushan/centralized-logging:latest
         ports:
         - containerPort: 5005
 ---
