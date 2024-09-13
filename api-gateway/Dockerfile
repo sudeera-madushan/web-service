@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Install dependencies
-COPY account-service/requirements.txt .
+COPY api-gateway/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 

@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED=1
 WORKDIR /app
 
 # Install dependencies
-COPY requirements.txt .
+COPY wallet-service/requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
