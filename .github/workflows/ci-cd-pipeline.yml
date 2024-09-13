@@ -33,11 +33,11 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ variables.AWS_REGION }}
+        aws-region: us-east-1
 
     - name: Update kubeconfig
       run: |
-        aws eks --region ${{ variables.AWS_REGION }} update-kubeconfig --name ${{ variables.EKS_CLUSTER_NAME }}
+        aws eks --region us-east-1 update-kubeconfig --name micro-services
 
     - name: Wait for rollouts
       run: |
