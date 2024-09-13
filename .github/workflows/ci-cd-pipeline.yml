@@ -29,9 +29,11 @@ jobs:
         done
 
     - name: Set up Kubernetes CLI
-      uses: azure/setup-kubectl@v1
-      with:
-        version: '1.22.0'
+      run: |
+        curl -LO "https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl"
+        chmod +x ./kubectl
+        sudo mv ./kubectl /usr/local/bin/kubectl
+        kubectl version --client
 
     - name: Deploy to Green Environment
       env:
