@@ -72,24 +72,28 @@ jobs:
 
     - name: Deploy to EKS
       run: |
-        kubectl apply -f kubernetes/green/trading-deployment.yaml
-        kubectl apply -f kubernetes/green/wallet-deployment.yaml
-        kubectl apply -f kubernetes/green/account-management-deployment.yaml
-        kubectl apply -f kubernetes/green/api-gateway-deployment.yaml
+        kubectl apply -f kubernetes/account-service.yaml
+        kubectl apply -f kubernetes/api-gateway.yaml
+        kubectl apply -f kubernetes/centralized-logging.yaml
+        kubectl apply -f kubernetes/notification-service.yaml
+        kubectl apply -f kubernetes/trading-service.yaml
+        kubectl apply -f kubernetes/wallet-service.yaml
 
     - name: Wait for rollouts
       run: |
-        kubectl rollout status deployment/trading-service -n green
-        kubectl rollout status deployment/wallet-service -n green
         kubectl rollout status deployment/account-service -n green
         kubectl rollout status deployment/api-gateway -n green
+        kubectl rollout status deployment/centralized-logging -n green
+        kubectl rollout status deployment/notification-service -n green
+        kubectl rollout status deployment/trading-service -n green
+        kubectl rollout status deployment/wallet-service -n green
 
-    - name: Switch Traffic to Green
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
-      run: |
-        kubectl --kubeconfig=kubeconfig.yaml apply -f kubernetes/services.yaml # Update Service to point to Green
-        kubectl --kubeconfig=kubeconfig.yaml delete namespace blue # Optional: clean up Blue namespace
+    # - name: Switch Traffic to Green
+    #   env:
+    #     KUBECONFIG: ${{ secrets.KUBECONFIG }}
+    #   run: |
+    #     kubectl --kubeconfig=kubeconfig.yaml apply -f kubernetes/services.yaml # Update Service to point to Green
+    #     kubectl --kubeconfig=kubeconfig.yaml delete namespace blue # Optional: clean up Blue namespace
 
     - name: Clean up
       run: |
