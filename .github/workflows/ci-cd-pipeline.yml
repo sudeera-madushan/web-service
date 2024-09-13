@@ -28,22 +28,16 @@ jobs:
           docker push sudeeramadushan/$service:latest
         done
 
-    - name: Set up Kubernetes CLI
-      run: |
-        curl -LO "https://dl.k8s.io/release/v1.22.0/bin/linux/amd64/kubectl"
-        chmod +x ./kubectl
-        sudo mv ./kubectl /usr/local/bin/kubectl
-        kubectl version --client
+    - name: Set up AWS CLI
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Deploy to Green Environment
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+    - name: Update kubeconfig
       run: |
-        echo "$KUBECONFIG" > kubeconfig.yaml
-        kubectl --kubeconfig=kubeconfig.yaml apply -f kubernetes/green/trading-deployment.yaml
-        kubectl --kubeconfig=kubeconfig.yaml apply -f kubernetes/green/wallet-deployment.yaml
-        kubectl --kubeconfig=kubeconfig.yaml apply -f kubernetes/green/account-management-deployment.yaml
-        kubectl --kubeconfig=kubeconfig.yaml apply -f kubernetes/green/api-gateway-deployment.yaml
+        aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.EKS_CLUSTER_NAME }}
 
     - name: Wait for rollouts
       run: |
