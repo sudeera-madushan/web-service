@@ -75,10 +75,10 @@ jobs:
     # - name: Set up KUBECONFIG environment variable
     #   run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 
-    # - name: Verify kubeconfig
-    #   run: |
-    #     kubectl config view
-    #     kubectl cluster-info
+    - name: Verify kubeconfig
+      run: |
+        kubectl config view
+        kubectl cluster-info
     # - name: Verify Kubeconfig
     #   run: |
     #     cat ~/.kube/config
