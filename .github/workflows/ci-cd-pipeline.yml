@@ -47,25 +47,25 @@ jobs:
         aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
 
     - name: Create Kubeconfig Manually
-        run: |
-          mkdir -p ~/.kube
-          echo "apiVersion: v1
-          clusters:
-          - cluster:
-              server: https://AAD010970832CB3A6ABAB87C18830F3A.gr7.us-east-1.eks.amazonaws.com
-              certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJTnRmdXdHdFFqbzR3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TkRBNU1UTXhOekl6TlRsYUZ3MHpOREE1TVRFeE56STROVGxhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUURFYTh3OE1zb3VtTTRVUGkzYThoS1U0ei8xdGdaY1pGUVhKYmhOWXkvUGFNYlhoMEZMd2VyOHliNVQKZ3dwb2NBbWN6aEdLalVySlhGOWc5dVNpMDBpbDF5dUg2VVhrVFNtQ3Bhb2h1OXpZSTlkTkNienBFU08zUFBheQo5WFVMNGk0QmtHNDZSNHFXQm1UTTQzVXVnbFBzSkFKaE9saHdtOVIrYnNXZEIxa2ZMQ29OTkNPV1hrUzJzeS8rCmVvQTFmZEtvTURIVnVodTh3ekpPdnROMThnVENRdGZLOVlyaG9EaVVNYW9PQ1ZkMEdNQjZ1czh3ajNsM1MyMngKSkRNd0VTZzVLNEwrMjBsVCtWek4wcWQ5N2xhckVtaDNybkZvajVBSzg1dUhuUkdhdWp4MWt6OFc2M1VUcGxoYgphNlBPQjNoUnNpb2ZVRVdNTHZidm4vYTBHWGRsQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJTbWhFRkVIaDQ0eWUvU1p4Wk1NUklkaU5Qa0NUQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQmwreG1kSGFBcwo1SGtPcTlvdUxjVDV6NC9VenJWdWEyUTFyRXdoWGMyVHZOcHM5T0JGdDIxbDRJR3dxRVNoTlBBYVoxQU5qN0dUCkFaeFFFb3NQdk5xY3BCMlJRaFpKM2dPV3VhZTdGUi9ucHMvSzZLdFY2b09xaUhPbXNqN0lDZDZFb2VKaTBCMSsKN0EwMzBXUU1kOTI4N3ZpMzZVWDl0K0lQZzkvZ1BiNEhmVjBYSi9jbXhKcmVuMDgyaXoxUnIzTXM2L1B3WC9wSwpEeXlRTWE1cHhQdUhIbXZRcEFZdWw5RzRXbGxOUE1mMTNoWTgxcWwzNTg0L0JEN28xYnJYQm1nT3Nobkx4VnhaClkyOW01cXRPU2g2cm1WeWtRdG55V0FCM0RONE4wSy9zOGZ3MDMwMFV2Z09DN3JQd2JqMmt5RnFZdTJyeDVNSVYKTHZqdHdzb1ZMVi9wCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-            name: micro-services
-          contexts:
-          - context:
-              cluster: micro-services
-              user: aws
-              namespace: default
-            name: micro-services
-          current-context: micro-services
-          users:
-          - name: aws
-            user:
-              token: $(aws sts get-caller-identity --query Arn --output text)" > ~/.kube/config
+      run: |
+        mkdir -p ~/.kube
+        echo "apiVersion: v1
+        clusters:
+        - cluster:
+            server: https://AAD010970832CB3A6ABAB87C18830F3A.gr7.us-east-1.eks.amazonaws.com
+            certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCVENDQWUyZ0F3SUJBZ0lJTnRmdXdHdFFqbzR3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TkRBNU1UTXhOekl6TlRsYUZ3MHpOREE1TVRFeE56STROVGxhTUJVeApFekFSQmdOVkJBTVRDbXQxWW1WeWJtVjBaWE13Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLCkFvSUJBUURFYTh3OE1zb3VtTTRVUGkzYThoS1U0ei8xdGdaY1pGUVhKYmhOWXkvUGFNYlhoMEZMd2VyOHliNVQKZ3dwb2NBbWN6aEdLalVySlhGOWc5dVNpMDBpbDF5dUg2VVhrVFNtQ3Bhb2h1OXpZSTlkTkNienBFU08zUFBheQo5WFVMNGk0QmtHNDZSNHFXQm1UTTQzVXVnbFBzSkFKaE9saHdtOVIrYnNXZEIxa2ZMQ29OTkNPV1hrUzJzeS8rCmVvQTFmZEtvTURIVnVodTh3ekpPdnROMThnVENRdGZLOVlyaG9EaVVNYW9PQ1ZkMEdNQjZ1czh3ajNsM1MyMngKSkRNd0VTZzVLNEwrMjBsVCtWek4wcWQ5N2xhckVtaDNybkZvajVBSzg1dUhuUkdhdWp4MWt6OFc2M1VUcGxoYgphNlBPQjNoUnNpb2ZVRVdNTHZidm4vYTBHWGRsQWdNQkFBR2pXVEJYTUE0R0ExVWREd0VCL3dRRUF3SUNwREFQCkJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWREZ1FXQkJTbWhFRkVIaDQ0eWUvU1p4Wk1NUklkaU5Qa0NUQVYKQmdOVkhSRUVEakFNZ2dwcmRXSmxjbTVsZEdWek1BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQmwreG1kSGFBcwo1SGtPcTlvdUxjVDV6NC9VenJWdWEyUTFyRXdoWGMyVHZOcHM5T0JGdDIxbDRJR3dxRVNoTlBBYVoxQU5qN0dUCkFaeFFFb3NQdk5xY3BCMlJRaFpKM2dPV3VhZTdGUi9ucHMvSzZLdFY2b09xaUhPbXNqN0lDZDZFb2VKaTBCMSsKN0EwMzBXUU1kOTI4N3ZpMzZVWDl0K0lQZzkvZ1BiNEhmVjBYSi9jbXhKcmVuMDgyaXoxUnIzTXM2L1B3WC9wSwpEeXlRTWE1cHhQdUhIbXZRcEFZdWw5RzRXbGxOUE1mMTNoWTgxcWwzNTg0L0JEN28xYnJYQm1nT3Nobkx4VnhaClkyOW01cXRPU2g2cm1WeWtRdG55V0FCM0RONE4wSy9zOGZ3MDMwMFV2Z09DN3JQd2JqMmt5RnFZdTJyeDVNSVYKTHZqdHdzb1ZMVi9wCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+          name: micro-services
+        contexts:
+        - context:
+            cluster: micro-services
+            user: aws
+            namespace: default
+          name: micro-services
+        current-context: micro-services
+        users:
+        - name: aws
+          user:
+            token: $(aws sts get-caller-identity --query Arn --output text)" > ~/.kube/config
 
     # - name: Set up KUBECONFIG environment variable
     #   run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
