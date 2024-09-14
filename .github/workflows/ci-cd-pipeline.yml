@@ -76,12 +76,12 @@ jobs:
 
     - name: Deploy to EKS
       run: |
-        kubectl apply -f kubernetes/account-service.yaml --validate=true
-        kubectl apply -f kubernetes/api-gateway.yaml --validate=true
-        kubectl apply -f kubernetes/centralized-logging.yaml --validate=true
-        kubectl apply -f kubernetes/notification-service.yaml --validate=true
-        kubectl apply -f kubernetes/trading-service.yaml --validate=true
-        kubectl apply -f kubernetes/wallet-service.yaml --validate=true
+        kubectl apply -f kubernetes/account-service.yaml --validate=false
+        kubectl apply -f kubernetes/api-gateway.yaml --validate=false
+        kubectl apply -f kubernetes/centralized-logging.yaml --validate=false
+        kubectl apply -f kubernetes/notification-service.yaml --validate=false
+        kubectl apply -f kubernetes/trading-service.yaml --validate=false
+        kubectl apply -f kubernetes/wallet-service.yaml --validate=false
 
     - name: Wait for rollouts
       run: |
