@@ -51,6 +51,7 @@ jobs:
       run: |
         cat ~/.kube/config
         kubectl config get-contexts
+        kubectl config current-context
 
     # - name: Run unit tests
     #   run: |
