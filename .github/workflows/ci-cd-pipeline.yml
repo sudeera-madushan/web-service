@@ -70,8 +70,8 @@ jobs:
             token: $(aws sts get-caller-identity --query Arn --output text)" > ~/.kube/config
 
 
-    # - name: Set up KUBECONFIG environment variable
-    #   run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
+    - name: Set up KUBECONFIG environment variable
+      run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 
     # - name: Verify Kubeconfig
     #   run: |
