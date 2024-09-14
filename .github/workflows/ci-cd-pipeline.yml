@@ -47,15 +47,19 @@ jobs:
     - name: Set up KUBECONFIG environment variable
       run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 
-
-    - name: Run unit tests
+    - name: Verify Kubeconfig
       run: |
-        services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
-        for service in "${services[@]}"; do
-          cd $service
-          pip install -r requirements.txt
-          cd ..
-        done
+        cat ~/.kube/config
+        kubectl config get-contexts
+
+    # - name: Run unit tests
+    #   run: |
+    #     services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
+    #     for service in "${services[@]}"; do
+    #       cd $service
+    #       pip install -r requirements.txt
+    #       cd ..
+    #     done
 
     # - name: Run integration tests
     #   run: |
