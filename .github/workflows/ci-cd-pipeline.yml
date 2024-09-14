@@ -32,9 +32,10 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    # - name: Update kubeconfig
-    #   run: |
-    #     aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
+    - name: Update kubeconfig
+      run: |
+        aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
+
 
     - name: Configure kubeconfig
       run: |
