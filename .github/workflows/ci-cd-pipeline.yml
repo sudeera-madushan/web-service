@@ -56,9 +56,9 @@ jobs:
     #     mkdir -p ~/.kube
     #     echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
-    # - name: Update kubeconfig
-    #   run: |
-    #     aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
+    - name: Update kubeconfig
+      run: |
+        aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
 
     # - name: Create Kubeconfig Manually
     #   run: |
@@ -96,21 +96,17 @@ jobs:
         done
 
 
-    - name: Configure kubeconfig
-      run: |
-        echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+    # - name: Configure kubeconfig
+    #   run: |
+    #     echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+    #   env:
+    #     KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
-    - name: Verify kubeconfig
-      run: |
-        kubectl config view
-        kubectl cluster-info
+    # - name: Verify kubeconfig
+    #   run: |
+    #     kubectl config view
+    #     kubectl cluster-info
 
-    - name: Verify kubeconfig
-      run: |
-        kubectl config view
-        kubectl cluster-info
     # - name: Verify Kubeconfig
     #   run: |
     #     cat ~/.kube/config
