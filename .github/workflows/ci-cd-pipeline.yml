@@ -32,10 +32,6 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    # - name: Update kubeconfig
-    #   run: |
-    #     aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
-        
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
@@ -50,15 +46,15 @@ jobs:
           docker push sudeeramadushan/$service:latest
         done
 
+    - name: Update kubeconfig
+      run: |
+        aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
 
     # - name: Create kubeconfig file
     #   run: |
     #     mkdir -p ~/.kube
     #     echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
 
-    - name: Update kubeconfig
-      run: |
-        aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
 
     # - name: Create Kubeconfig Manually
     #   run: |
@@ -83,8 +79,8 @@ jobs:
     #       user:
     #         token: $(aws sts get-caller-identity --query Arn --output text)" > ~/.kube/config
 
-    # - name: Set up KUBECONFIG environment variable
-    #   run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
+    - name: Set up KUBECONFIG environment variable
+      run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 
     - name: Run unit tests
       run: |
@@ -118,18 +114,6 @@ jobs:
     #   run: |
     #     ./test_integration.sh
 
-    # - name: Run migrations
-    #   run: |
-    #     services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
-    #     for service in "${services[@]}"; do
-    #       cd $service
-    #       if [ -f "migrations" ]; then
-    #         flask db upgrade # For Flask-Migrate
-    #       elif [ -f "scripts/migrate-db.sh" ]; then
-    #         ./scripts/migrate-db.sh
-    #       fi
-    #       cd ..
-    #     done
 
     - name: Deploy to EKS
       run: |
