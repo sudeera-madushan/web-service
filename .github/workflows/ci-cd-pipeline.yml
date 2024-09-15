@@ -35,17 +35,6 @@ jobs:
     # - name: Update kubeconfig
     #   run: |
     #     aws eks --region us-east-1 update-kubeconfig --name micro-services --role-arn arn:aws:iam::339713093212:role/eks
-
-    - name: Configure kubeconfig
-      run: |
-        echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
-      env:
-        KUBECONFIG: ${{ secrets.KUBECONFIG }}
-
-    - name: Verify kubeconfig
-      run: |
-        kubectl config view
-        kubectl cluster-info
         
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -97,6 +86,27 @@ jobs:
     # - name: Set up KUBECONFIG environment variable
     #   run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV
 
+    - name: Run unit tests
+      run: |
+        services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
+        for service in "${services[@]}"; do
+          cd $service
+          pip install -r requirements.txt
+          cd ..
+        done
+
+
+    - name: Configure kubeconfig
+      run: |
+        echo "${{ secrets.KUBECONFIG }}" > ~/.kube/config
+      env:
+        KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
+    - name: Verify kubeconfig
+      run: |
+        kubectl config view
+        kubectl cluster-info
+
     - name: Verify kubeconfig
       run: |
         kubectl config view
@@ -107,14 +117,6 @@ jobs:
     #     kubectl config get-contexts
     #     kubectl config current-context
 
-    - name: Run unit tests
-      run: |
-        services=("account-service" "api-gateway" "centralized-logging" "notification-service" "trading-service" "wallet-service")
-        for service in "${services[@]}"; do
-          cd $service
-          pip install -r requirements.txt
-          cd ..
-        done
 
     # - name: Run integration tests
     #   run: |
